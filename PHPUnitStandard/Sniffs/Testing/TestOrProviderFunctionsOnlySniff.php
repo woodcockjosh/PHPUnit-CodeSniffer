@@ -29,7 +29,7 @@ implements PHP_CodeSniffer_Sniff {
         $properties = $phpcsFile->getMethodProperties($stackPtr);
         $functionName = $phpcsFile->getDeclarationName($stackPtr);
         if (!in_array($properties['scope'], array('private', 'protected'))) {
-            if (preg_match('@(test|provide)[A-Z_].*@', $functionName)) {
+            if (preg_match('@(test|provide|setUp|tearDown).*@', $functionName)) {
                 return;
             }
             $phpcsFile->addError(

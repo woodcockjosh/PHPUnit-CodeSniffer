@@ -6,7 +6,7 @@ extends PHP_CodeSniffer_Standards_AbstractScopeSniff {
     public function __construct() {
         parent::__construct(array(T_CLASS, T_INTERFACE), array(T_FUNCTION), true);
     }
-    
+
     protected function processTokenWithinScope(
         PHP_CodeSniffer_File $phpcsFile,
         $stackPtr,
@@ -18,8 +18,14 @@ extends PHP_CodeSniffer_Standards_AbstractScopeSniff {
         }
         $className = $phpcsFile->getDeclarationName($currScope);
         $errorData = array($className . '::' . $methodName);
-        
+
+        //ignore setUp and tearDown functions
+        if (preg_match(';^(setUp|tearDown)(.*);', $methodName, $matches) !== 0){
+        	return;
+        }
+
         if (preg_match(';^(test|provider)(.*);', $methodName, $matches) !== 0) {
+
             if (empty($matches[2])) {
                 $phpcsFile->addError(
                     'Method name cannot just be "%s"',
@@ -30,7 +36,7 @@ extends PHP_CodeSniffer_Standards_AbstractScopeSniff {
                 return;
             }
             $parts = explode('_', $matches[2]);
-            
+
             if (count($parts) > 2) {
                 $phpcsFile->addError(
                     'Method name "%s" cannot have more than one dividing underscore.',
@@ -39,7 +45,7 @@ extends PHP_CodeSniffer_Standards_AbstractScopeSniff {
                     $errorData
                 );
             }
-            
+
             if (preg_match(';_$;', $methodName) !== 0) {
                 $phpcsFile->addError(
                     'Method name "%s" cannot end with an underscore.',
@@ -48,7 +54,7 @@ extends PHP_CodeSniffer_Standards_AbstractScopeSniff {
                     $errorData
                 );
             }
-            
+
             if (!empty($parts[0])
                 && PHP_CodeSniffer::isCamelCaps($parts[0], true, true, false) === false) {
                 $phpcsFile->addError(
@@ -60,9 +66,9 @@ extends PHP_CodeSniffer_Standards_AbstractScopeSniff {
                         $matches[1]
                     )
                 );
-            
+
             }
-            
+
             if (count($parts) > 1
                 && !empty($parts[1])
                 && PHP_CodeSniffer::isCamelCaps($parts[1], false, true, false) === false) {

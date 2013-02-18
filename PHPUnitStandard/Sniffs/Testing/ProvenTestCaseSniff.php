@@ -10,6 +10,7 @@ implements PHP_CodeSniffer_Sniff {
         'PHPUnit_Extensions_PhptTestCase',
         'PHPUnit_Extensions_RepeatedTest',
         'PHPUnit_Framework_TestCase',
+    	'CIUnit_TestCase'
     );
 
     /**

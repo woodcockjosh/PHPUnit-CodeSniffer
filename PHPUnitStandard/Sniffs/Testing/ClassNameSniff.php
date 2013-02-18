@@ -27,15 +27,22 @@ implements PHP_CodeSniffer_Sniff {
         $origStackPtr = $stackPtr;
 
         $filename = $phpcsFile->getFileName();
-        if(!preg_match("@.*/tests/phpunit/(.*).php@", $filename, $matches)) {
+        $regex = "@.*/tests/(.*).php@";
+
+        if(DIRECTORY_SEPARATOR == '\\')
+        {
+        	$regex = str_replace("/",'\\\\',$regex);
+        }
+
+        if(!preg_match($regex, $filename, $matches)) {
             $phpcsFile->addWarning(
-                'File path does not match expected convention.',
+                'File path does not match expected convention sdfgsf.' . $regex,
                 $stackPtr
             );
             return;
         }
-        
-        $expected = str_replace("/", "_", $matches[1]);
+
+        $expected = str_replace(DIRECTORY_SEPARATOR, "_", $matches[1]);
 
         $found = array();
         while ($stackPtr = $phpcsFile->findNext(T_CLASS, ++$stackPtr)) {

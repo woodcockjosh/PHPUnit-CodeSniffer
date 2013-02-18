@@ -4,14 +4,14 @@
  <rule ref="Generic.CodeAnalysis.UselessOverridingMethod" />
  <rule ref="Generic.Metrics.CyclomaticComplexity">
   <properties>
-   <property name="absoluteComplexity" value="1" />
-   <property name="complexity" value="1" />
+   <property name="absoluteComplexity" value="2" />
+   <property name="complexity" value="2" />
   </properties>
  </rule>
  <rule ref="Generic.Metrics.NestingLevel">
   <properties>
-   <property name="absoluteNestingLevel" value="0" />
-   <property name="nestingLevel" value="0" />
+   <property name="absoluteNestingLevel" value="1" />
+   <property name="nestingLevel" value="1" />
   </properties>
  </rule>
 </ruleset>
