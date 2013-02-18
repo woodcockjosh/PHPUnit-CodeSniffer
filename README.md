@@ -1,3 +1,1 @@
-See PEAR channel instructions at: http://elblinkin.github.com/Pirum/
-
-Note:  My apologies, but the sniffs might have a few rough edges around them.  Will be cleaning up and adding documentation soon.
+Created a valid assertion class which tests the number of assertions per test and eliminated the sniff which created an error for setUp and tearDown
